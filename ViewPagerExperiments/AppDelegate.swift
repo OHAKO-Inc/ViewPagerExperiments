@@ -16,7 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = ScrollContainerViewController.instantiate()
+        
+        let scrollContainerVC = ScrollContainerViewController.instantiate()
+        var contentVCs = [UIViewController]()
+        (0..<10).forEach { (_) in
+            contentVCs.append(ContentViewController.instantiate())
+        }
+        scrollContainerVC.contentVCs = contentVCs
+        
+        window?.rootViewController = scrollContainerVC
         window?.makeKeyAndVisible()
         return true
     }
