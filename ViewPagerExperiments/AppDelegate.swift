@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let scrollContainerVC = ScrollContainerViewController.instantiate()
         var contentVCs = [UIViewController]()
-        (0..<10).forEach { (_) in
-            contentVCs.append(ContentViewController.instantiate())
+        (0..<10).forEach { ( index ) in
+            let contentVC = ContentViewController.instantiate()
+            contentVC.view.backgroundColor = UIColor.randomColor(index)
+            contentVCs.append(contentVC)
         }
         scrollContainerVC.contentVCs = contentVCs
         
