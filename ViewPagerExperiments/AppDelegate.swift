@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let scrollContainerVC = ScrollContainerViewController.instantiate()
+        let scrollContainerVC = PageViewController()
         var contentVCs = [UIViewController]()
         (0..<10).forEach { ( index ) in
             let contentVC = ContentViewController.instantiate()

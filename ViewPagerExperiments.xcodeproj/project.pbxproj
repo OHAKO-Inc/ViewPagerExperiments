@@ -19,6 +19,7 @@
 		E3414BDE1CB3B85900AF7D12 /* ContentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3414BDD1CB3B85900AF7D12 /* ContentViewController.storyboard */; };
 		E3414BE01CB3B87100AF7D12 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3414BDF1CB3B87100AF7D12 /* ContentViewController.swift */; };
 		E361575B1CB65C380076E419 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E361575A1CB65C380076E419 /* UIColorExtension.swift */; };
+		E3DA22E01CC4CC1F00FEFA81 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DA22DF1CC4CC1F00FEFA81 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E3414BDD1CB3B85900AF7D12 /* ContentViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ContentViewController.storyboard; sourceTree = "<group>"; };
 		E3414BDF1CB3B87100AF7D12 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		E361575A1CB65C380076E419 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		E3DA22DF1CC4CC1F00FEFA81 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		E3414BDA1CB3B62F00AF7D12 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3DA22DE1CC4CB9100FEFA81 /* PageViewController */,
 				E3414BDB1CB3B81E00AF7D12 /* ScrollContainer */,
 				E3414BDC1CB3B83F00AF7D12 /* Content */,
 			);
@@ -191,6 +194,14 @@
 				E3414BDF1CB3B87100AF7D12 /* ContentViewController.swift */,
 			);
 			name = Content;
+			sourceTree = "<group>";
+		};
+		E3DA22DE1CC4CB9100FEFA81 /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3DA22DF1CC4CC1F00FEFA81 /* PageViewController.swift */,
+			);
+			name = PageViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +390,7 @@
 				E3414BE01CB3B87100AF7D12 /* ContentViewController.swift in Sources */,
 				E3414BAC1CB3B25100AF7D12 /* ScrollContainerViewController.swift in Sources */,
 				E361575B1CB65C380076E419 /* UIColorExtension.swift in Sources */,
+				E3DA22E01CC4CC1F00FEFA81 /* PageViewController.swift in Sources */,
 				E3414BD81CB3B27F00AF7D12 /* StoryboardInstantiable.swift in Sources */,
 				E3414BAA1CB3B25100AF7D12 /* AppDelegate.swift in Sources */,
 			);
