@@ -23,6 +23,7 @@
 		E3B6A1301CC8E87B008AC7E4 /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6A12F1CC8E87B008AC7E4 /* TabMenuViewController.swift */; };
 		E3B6A1321CC8E8AF008AC7E4 /* TabMenuCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6A1311CC8E8AF008AC7E4 /* TabMenuCollectionViewDataSource.swift */; };
 		E3B6A1341CC8E93F008AC7E4 /* TabMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6A1331CC8E93F008AC7E4 /* TabMenuCollectionViewCell.swift */; };
+		E3B6A1361CC8F2CB008AC7E4 /* CenterCellCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6A1351CC8F2CB008AC7E4 /* CenterCellCollectionViewFlowLayout.swift */; };
 		E3DA22E01CC4CC1F00FEFA81 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DA22DF1CC4CC1F00FEFA81 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		E3B6A12F1CC8E87B008AC7E4 /* TabMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
 		E3B6A1311CC8E8AF008AC7E4 /* TabMenuCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		E3B6A1331CC8E93F008AC7E4 /* TabMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		E3B6A1351CC8F2CB008AC7E4 /* CenterCellCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterCellCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		E3DA22DF1CC4CC1F00FEFA81 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +214,7 @@
 				E3B6A12F1CC8E87B008AC7E4 /* TabMenuViewController.swift */,
 				E3B6A1311CC8E8AF008AC7E4 /* TabMenuCollectionViewDataSource.swift */,
 				E3B6A1331CC8E93F008AC7E4 /* TabMenuCollectionViewCell.swift */,
+				E3B6A1351CC8F2CB008AC7E4 /* CenterCellCollectionViewFlowLayout.swift */,
 			);
 			name = MenuView;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				E3414BE01CB3B87100AF7D12 /* ContentViewController.swift in Sources */,
 				E3414BAC1CB3B25100AF7D12 /* ScrollContainerViewController.swift in Sources */,
 				E361575B1CB65C380076E419 /* UIColorExtension.swift in Sources */,
+				E3B6A1361CC8F2CB008AC7E4 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				E3B6A1301CC8E87B008AC7E4 /* TabMenuViewController.swift in Sources */,
 				E3DA22E01CC4CC1F00FEFA81 /* PageViewController.swift in Sources */,
 				E3414BD81CB3B27F00AF7D12 /* StoryboardInstantiable.swift in Sources */,
