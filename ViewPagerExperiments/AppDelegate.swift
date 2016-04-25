@@ -17,28 +17,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-//        setupPageViewController()
-        setupTabMenuViewController()
+        //        setupPageViewController()
+        //        setupTabMenuViewController()
+        setupPageWithMenuViewController()
         window?.makeKeyAndVisible()
         return true
     }
 
     private func setupPageViewController() {
         let scrollContainerVC = PageViewController()
-        var contentVCs = [UIViewController]()
-        (0..<10).forEach { ( index ) in
-            let contentVC = ContentViewController.instantiate()
-            contentVC.view.backgroundColor = UIColor.randomColor(index)
-            contentVCs.append(contentVC)
-        }
-        scrollContainerVC.contentVCs = contentVCs
-        
+        scrollContainerVC.contentVCs = createContentVCs()
         window?.rootViewController = scrollContainerVC
     }
     
     private func setupTabMenuViewController() {
         let tabMenuViewController = TabMenuViewController.instantiate()
         window?.rootViewController = tabMenuViewController
+    }
+    
+    private func setupPageWithMenuViewController() {
+        let pageWithMenuViewController = PageWithMenuViewController.instantiate()
+        pageWithMenuViewController.contentVCs = createContentVCs()
+        window?.rootViewController = pageWithMenuViewController
+    }
+    
+    private func createContentVCs() -> [UIViewController] {
+        var contentVCs = [UIViewController]()
+        (0..<10).forEach { ( index ) in
+            let contentVC = ContentViewController.instantiate()
+            contentVC.view.backgroundColor = UIColor.randomColor(index)
+            contentVC.title = "\(index)"
+            contentVCs.append(contentVC)
+        }
+        return contentVCs
     }
     
     func applicationWillResignActive(application: UIApplication) {
