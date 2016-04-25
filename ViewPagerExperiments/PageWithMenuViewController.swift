@@ -55,6 +55,7 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
         pageViewController.dataSource = contentPageViewControllerDataSource
         pageViewController.delegate = self
         pageViewController.setViewControllers([contentVCs[0]], direction: .Forward, animated: true, completion: nil)
+        currentContentVC = contentVCs[0]
         
         func setupConstraints() {
             pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +88,7 @@ extension PageWithMenuViewController: UIScrollViewDelegate {
                 return
         }
         
-        menuCollectionView.contentOffset.x = (150.0 / scrollView.bounds.width) * scrollView.contentOffset.x - (scrollView.bounds.width - 150.0) / 2 + CGFloat(currentContentVCIndex) * 150.0
+        menuCollectionView.contentOffset.x = (150.0 / scrollView.bounds.width) * scrollView.contentOffset.x - (scrollView.bounds.width - 150.0) / 2 + CGFloat(currentContentVCIndex - 1) * 150.0
 
         print(menuCollectionView.contentOffset.x)
     }
