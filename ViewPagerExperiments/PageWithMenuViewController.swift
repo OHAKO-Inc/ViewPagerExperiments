@@ -13,6 +13,16 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
     @IBOutlet weak var contentPageContainerView: UIView!
     @IBOutlet weak var menuCollectionView: UICollectionView!
 
+    let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    lazy var scrollViewInPageViewController: UIScrollView! = {
+        for view in self.pageViewController.view.subviews {
+            if let scrollView = view as? UIScrollView {
+                return scrollView
+            }
+        }
+        return nil
+    }()
+    
     var contentVCs: [UIViewController]!
     
     var currentContentVC: UIViewController?
@@ -27,9 +37,10 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
         return ContentPageViewControllerDataSource(contentVCs: self.contentVCs)
     }()
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuCollectionView()
         setupPageViewController()
     }
     
@@ -37,25 +48,27 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
         super.viewDidLayoutSubviews()
         setupMenuCollectionView()
     }
+    
     private func setupMenuCollectionView() {
         menuCollectionView.dataSource = menuCollectionViewDataSource
+        (menuCollectionView as UIScrollView).delegate = self
         
         var insets = menuCollectionView.contentInset
         let value = (view.frame.size.width - (self.menuCollectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width) * 0.5
         insets.left = value
         insets.right = value
         menuCollectionView.contentInset = insets
-        print("\(value)")
         menuCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
     
     private func setupPageViewController() {
 
-        let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController.dataSource = contentPageViewControllerDataSource
         pageViewController.delegate = self
-        pageViewController.setViewControllers([contentVCs[0]], direction: .Forward, animated: true, completion: nil)
+        scrollViewInPageViewController?.delegate = self
+
         currentContentVC = contentVCs[0]
+        pageViewController.setViewControllers([currentContentVC!], direction: .Forward, animated: true, completion: nil)
         
         func setupConstraints() {
             pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -66,16 +79,10 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
         }
 
         addChildViewController(pageViewController)
-        self.contentPageContainerView.addSubview(pageViewController.view)
+        contentPageContainerView.addSubview(pageViewController.view)
         setupConstraints()
         pageViewController.didMoveToParentViewController(self)
 
-        
-        for view in pageViewController.view.subviews {
-            if let scrollView = view as? UIScrollView {
-                scrollView.delegate = self
-            }
-        }
     }
     
 }
@@ -83,14 +90,28 @@ class PageWithMenuViewController: UIViewController, StoryboardInstantiable {
 extension PageWithMenuViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
 
-        guard let currentContentVC = currentContentVC,
-            currentContentVCIndex = contentVCs.indexOf(currentContentVC) else {
-                return
-        }
-        
-        menuCollectionView.contentOffset.x = (150.0 / scrollView.bounds.width) * scrollView.contentOffset.x - (scrollView.bounds.width - 150.0) / 2 + CGFloat(currentContentVCIndex - 1) * 150.0
+        if scrollView === menuCollectionView {
+            
+            let destinationContentOffsetX = (scrollView.contentOffset.x + (scrollView.bounds.width - 150.0) / 2.0) * ((scrollViewInPageViewController!.bounds.width / 150.0))
+            let contentVCIndex = Int(round(destinationContentOffsetX / scrollViewInPageViewController!.bounds.width))
 
-        print(menuCollectionView.contentOffset.x)
+            if contentVCIndex >= 0 && contentVCIndex < contentVCs.count {
+                currentContentVC = contentVCs[contentVCIndex]
+                pageViewController.setViewControllers([currentContentVC!], direction: .Forward, animated: false, completion: nil)
+            }
+            
+            
+        } else { // page view controller
+            guard let currentContentVC = currentContentVC,
+                currentContentVCIndex = contentVCs.indexOf(currentContentVC) else {
+                    return
+            }
+            let menuScrollContentOffsetX = (150.0 / scrollView.bounds.width) * scrollView.contentOffset.x - (scrollView.bounds.width - 150.0) / 2 + CGFloat(currentContentVCIndex - 1) * 150.0
+            var scrollBounds = menuCollectionView.bounds
+            scrollBounds.origin = CGPoint(x: menuScrollContentOffsetX, y: scrollBounds.origin.y)
+            menuCollectionView.bounds = scrollBounds
+        }
+
     }
 }
 
