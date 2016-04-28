@@ -12,33 +12,37 @@ class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         
-        guard let _collectionView = collectionView,
-            attributesForVisibleCells = layoutAttributesForElementsInRect(_collectionView.bounds) else {
+        guard let collectionView = collectionView,
+            attributesForVisibleElements = layoutAttributesForElementsInRect(collectionView.bounds) else {
                 return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
         }
         
-        let halfWidth = _collectionView.bounds.size.width * 0.5
-        let proposedContentOffsetCenterX = proposedContentOffset.x + halfWidth
+        let attributesForVisibleCells = attributesForVisibleElements.filter { (attributes) -> Bool in
+            return attributes.representedElementCategory == .Cell
+        }
         
-        var candidateAttributes: UICollectionViewLayoutAttributes?
+        guard !attributesForVisibleCells.isEmpty else {
+            return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+        }
+        
+        
+        let visibleRectHalfWidth = collectionView.bounds.size.width * 0.5
+        let proposedVisibleRectCenterX = proposedContentOffset.x + visibleRectHalfWidth
+        
+        
+        // find centerCell in proposedVisibleRect
+        var centerCellCandidateAttributes = attributesForVisibleCells.first!
+        
         for attributes in attributesForVisibleCells {
-            guard attributes.representedElementCategory == UICollectionElementCategory.Cell else {
-                continue
-            }
             
-            guard let _candidateAttributes = candidateAttributes else {
-                candidateAttributes = attributes
-                continue
-            }
+            let centerDistanceBetweenCurrentCellAndVisibleRect = fabs(attributes.center.x - proposedVisibleRectCenterX)
+            let centerDistanceBetweenCandidateCellAndVisibleRect = fabs(centerCellCandidateAttributes.center.x - proposedVisibleRectCenterX)
             
-            let a = attributes.center.x - proposedContentOffsetCenterX
-            let b = _candidateAttributes.center.x - proposedContentOffsetCenterX
-            
-            if fabs(a) < fabs(b) {
-                candidateAttributes = attributes
+            if centerDistanceBetweenCurrentCellAndVisibleRect < centerDistanceBetweenCandidateCellAndVisibleRect {
+                centerCellCandidateAttributes = attributes
             }
         }
-        print(CGPoint(x: round(candidateAttributes!.center.x - halfWidth), y: proposedContentOffset.y))
-        return CGPoint(x: round(candidateAttributes!.center.x - halfWidth), y: proposedContentOffset.y)
+        
+        return CGPoint(x: round(centerCellCandidateAttributes.center.x - visibleRectHalfWidth), y: proposedContentOffset.y)
     }
 }
