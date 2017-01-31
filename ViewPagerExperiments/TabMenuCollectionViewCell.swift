@@ -12,7 +12,7 @@ class TabMenuCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    func configure(title: String) {
+    func configure(_ title: String) {
         titleLabel.text = title
     }
 }

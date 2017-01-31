@@ -42,41 +42,41 @@ class ScrollContainerViewController: UIViewController, StoryboardInstantiable {
     }
     
     
-    private func addViewController(viewController: UIViewController) {
+    fileprivate func addViewController(_ viewController: UIViewController) {
         viewController.view.frame = .zero
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         addChildViewController(viewController)
         scrollView.addSubview(viewController.view)
-        viewController.didMoveToParentViewController(self)
+        viewController.didMove(toParentViewController: self)
     }
 
-    private func removeViewController(viewController: UIViewController) {
-        viewController.willMoveToParentViewController(nil)
+    fileprivate func removeViewController(_ viewController: UIViewController) {
+        viewController.willMove(toParentViewController: nil)
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
     }
     
-    private func layoutViewControllers() {
+    fileprivate func layoutViewControllers() {
         
-        onMemoryVCs[0].view.leadingAnchor.constraintEqualToAnchor(scrollView.leadingAnchor).active = true
+        onMemoryVCs[0].view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         
-        for (index, contentVC) in onMemoryVCs.enumerate() {
+        for (index, contentVC) in onMemoryVCs.enumerated() {
             
-            contentVC.view.widthAnchor.constraintEqualToAnchor(scrollView.widthAnchor).active = true
-            contentVC.view.heightAnchor.constraintEqualToAnchor(scrollView.heightAnchor).active = true
-            contentVC.view.topAnchor.constraintEqualToAnchor(scrollView.topAnchor).active = true
-            contentVC.view.bottomAnchor.constraintEqualToAnchor(scrollView.bottomAnchor).active = true
+            contentVC.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            contentVC.view.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+            contentVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+            contentVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
             
             
             if index == onMemoryVCs.count - 1 {
                 break
             }
             let nextContentVC = onMemoryVCs[index + 1]
-            contentVC.view.trailingAnchor.constraintEqualToAnchor(nextContentVC.view.leadingAnchor).active = true
+            contentVC.view.trailingAnchor.constraint(equalTo: nextContentVC.view.leadingAnchor).isActive = true
         }
         
-        onMemoryVCs[onMemoryVCs.count - 1].view.trailingAnchor.constraintEqualToAnchor(scrollView.trailingAnchor).active = true
+        onMemoryVCs[onMemoryVCs.count - 1].view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         
     }
 
@@ -85,7 +85,7 @@ class ScrollContainerViewController: UIViewController, StoryboardInstantiable {
 extension ScrollContainerViewController: UIScrollViewDelegate {
 
 
-    private func constructViewControllers(visibleViewControllers: [UIViewController]) {
+    fileprivate func constructViewControllers(_ visibleViewControllers: [UIViewController]) {
         
         for previousChildViewController in self.childViewControllers {
             if !visibleViewControllers.contains(previousChildViewController) {
@@ -101,16 +101,16 @@ extension ScrollContainerViewController: UIScrollViewDelegate {
         
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         guard let position = PagingViewPosition(order: Int(scrollView.contentOffset.x / scrollView.bounds.width)),
-            let previousCenterVCIndex = contentVCs.indexOf(currentVC) else {
+            let previousCenterVCIndex = contentVCs.index(of: currentVC) else {
                 return
         }
 
         onMemoryVCs = []
         switch position {
-        case .Right:
+        case .right:
             onMemoryVCs.append(contentVCs[previousCenterVCIndex])
             onMemoryVCs.append(contentVCs[previousCenterVCIndex + 1])
             currentVC = contentVCs[previousCenterVCIndex + 1]
@@ -119,7 +119,7 @@ extension ScrollContainerViewController: UIScrollViewDelegate {
             }
 
 
-        case .Left:
+        case .left:
             if previousCenterVCIndex - 2 >= 0 {
                 onMemoryVCs.append(contentVCs[previousCenterVCIndex - 2])
             }
@@ -128,9 +128,9 @@ extension ScrollContainerViewController: UIScrollViewDelegate {
             onMemoryVCs.append(contentVCs[previousCenterVCIndex])
         }
         
-        NSLayoutConstraint.deactivateConstraints(scrollView.constraints)
+        NSLayoutConstraint.deactivate(scrollView.constraints)
         contentVCs.forEach { (vc) in
-            NSLayoutConstraint.deactivateConstraints(vc.view.constraints)
+            NSLayoutConstraint.deactivate(vc.view.constraints)
         }
         
         
@@ -142,15 +142,15 @@ extension ScrollContainerViewController: UIScrollViewDelegate {
 }
 
 enum PagingViewPosition {
-    case Left
-    case Right
+    case left
+    case right
     
     init?(order: Int) {
         switch order {
         case 0:
-            self = .Left
+            self = .left
         case 2:
-            self = .Right
+            self = .right
         default:
             return nil
         }

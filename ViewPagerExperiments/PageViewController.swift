@@ -15,13 +15,13 @@ class PageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-        pageViewController.setViewControllers([contentVCs[0]], direction: .Forward, animated: true, completion: nil)
+        let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController.setViewControllers([contentVCs[0]], direction: .forward, animated: true, completion: nil)
         pageViewController.dataSource = self
         
         addChildViewController(pageViewController)
         self.view.addSubview(pageViewController.view)
-        pageViewController.didMoveToParentViewController(self)
+        pageViewController.didMove(toParentViewController: self)
         
     }
     
@@ -29,18 +29,18 @@ class PageViewController: UIViewController {
 
 extension PageViewController: UIPageViewControllerDataSource {
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        guard let index = contentVCs.indexOf(viewController) else {
+        guard let index = contentVCs.index(of: viewController) else {
             return nil
         }
         
         return (index - 1) >= 0 ? contentVCs[index - 1] : contentVCs[contentVCs.count-1]
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        guard let index = contentVCs.indexOf(viewController) else {
+        guard let index = contentVCs.index(of: viewController) else {
             return nil
         }
         

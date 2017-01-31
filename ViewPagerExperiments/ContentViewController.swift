@@ -12,7 +12,7 @@ class ContentViewController: UIViewController, StoryboardInstantiable {
 
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func buttonDidTap(sender: AnyObject) {
+    @IBAction func buttonDidTap(_ sender: AnyObject) {
         print("buttonDidTap")
     }
     
@@ -23,11 +23,11 @@ class ContentViewController: UIViewController, StoryboardInstantiable {
 }
 
 extension ContentViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 100
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = "\(indexPath.row)"
         return cell
     }

@@ -10,19 +10,19 @@ import UIKit
 
 class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         
         guard let collectionView = collectionView,
-            attributesForVisibleElements = layoutAttributesForElementsInRect(collectionView.bounds) else {
-                return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+            let attributesForVisibleElements = layoutAttributesForElements(in: collectionView.bounds) else {
+                return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
         
         let attributesForVisibleCells = attributesForVisibleElements.filter { (attributes) -> Bool in
-            return attributes.representedElementCategory == .Cell
+            return attributes.representedElementCategory == .cell
         }
         
         guard !attributesForVisibleCells.isEmpty else {
-            return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
         
         

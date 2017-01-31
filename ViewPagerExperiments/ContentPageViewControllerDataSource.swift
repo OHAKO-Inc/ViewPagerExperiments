@@ -18,17 +18,17 @@ class ContentPageViewControllerDataSource: NSObject {
 
 extension ContentPageViewControllerDataSource: UIPageViewControllerDataSource {
 
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        guard let index = contentVCs.indexOf(viewController) else {
+        guard let index = contentVCs.index(of: viewController) else {
             return nil
         }
         
         return (index - 1) >= 0 ? contentVCs[index - 1] : nil
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let index = contentVCs.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = contentVCs.index(of: viewController) else {
             return nil
         }
         
