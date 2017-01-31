@@ -16,12 +16,12 @@ class MenuCollectionViewDataSource: NSObject {
 }
 
 extension MenuCollectionViewDataSource: UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titles.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(TabMenuCollectionViewCell), forIndexPath: indexPath) as! TabMenuCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TabMenuCollectionViewCell.self), for: indexPath) as! TabMenuCollectionViewCell
         cell.configure(titles[indexPath.row])
         return cell
     }

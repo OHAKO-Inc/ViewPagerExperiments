@@ -9,30 +9,30 @@
 import UIKit
 
 extension UIColor {
-    static func randomColor(index: Int) -> UIColor {
+    static func randomColor(_ index: Int) -> UIColor {
         switch index % 10 {
         case 0:
-            return UIColor.blackColor()
+            return UIColor.black
         case 1:
-            return UIColor.blueColor()
+            return UIColor.blue
         case 2:
-            return UIColor.brownColor()
+            return UIColor.brown
         case 3:
-            return UIColor.cyanColor()
+            return UIColor.cyan
         case 4:
-            return UIColor.darkGrayColor()
+            return UIColor.darkGray
         case 5:
-            return UIColor.grayColor()
+            return UIColor.gray
         case 6:
-            return UIColor.greenColor()
+            return UIColor.green
         case 7:
-            return UIColor.lightGrayColor()
+            return UIColor.lightGray
         case 8:
-            return UIColor.magentaColor()
+            return UIColor.magenta
         case 9:
-            return UIColor.orangeColor()
+            return UIColor.orange
         default:
-            return UIColor.whiteColor()
+            return UIColor.white
         }
     }
 }

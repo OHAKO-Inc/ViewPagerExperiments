@@ -35,7 +35,7 @@ class TabMenuViewController: UIViewController, StoryboardInstantiable {
 }
 
 extension TabMenuViewController: UICollectionViewDelegate {
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         print("didScroll")
 //        let contentOffsetWhenFullyScrolledRight = collectionView.frame.size.width * CGFloat(dataSource.actualTitles.count - 1)
 //        if scrollView.contentOffset.x == contentOffsetWhenFullyScrolledRight {
