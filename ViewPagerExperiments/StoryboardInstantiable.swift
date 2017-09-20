@@ -12,7 +12,7 @@ protocol StoryboardInstantiable {}
 
 extension StoryboardInstantiable {
     static func instantiate() -> Self {
-        let storyBoard = UIStoryboard(name: String(Self), bundle: nil)
+        let storyBoard = UIStoryboard(name: String(describing: Self.self), bundle: nil)
         return storyBoard.instantiateInitialViewController() as! Self
     }
 }
